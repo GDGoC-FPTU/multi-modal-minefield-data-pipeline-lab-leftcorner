@@ -15,19 +15,21 @@ def clean_transcript(file_path):
     # TODO: Strip timestamps [00:00:00]
     # TODO: Find the price mentioned in Vietnamese words ("năm trăm nghìn")
     # TODO: Return a cleaned dictionary for the UnifiedDocument schema.
-    text = re.sub(r'\[.*?\]', '', text)  # Remove [Music], [inaudible], etc.
-    text = re.sub(r'\[\d{2}:\d{2}:\d{2}\]', '', text)  # Remove timestamps
-    price_match = re.search(r'(\w+\s)?(nghìn|triệu|tỷ)', text)
-    price = None
-    if price_match:
-        price = price_match.group(0)
+    
+    # Remove specific noise tokens and timestamps
+    text = re.sub(r'\[(?:Music(?: starts| ends)?|inaudible|Laughter)\]', '', text)
+    text = re.sub(r'\[\d{2}:\d{2}:\d{2}\]', '', text)
+    
+    # Find price in Vietnamese words
+    price_match = re.search(r'năm trăm nghìn', text, re.IGNORECASE)
+    price = price_match.group(0) if price_match else None
 
     return {
-        "document_id": "transcript_1",
+        "document_id": "transcript-1",
         "content": text.strip(),
         "source_type": "Transcript",
         "author": "Unknown",
         "timestamp": None,
-        "source_metadata": {"price": price}
+        "source_metadata": {"price_mentioned": price}
     }
 

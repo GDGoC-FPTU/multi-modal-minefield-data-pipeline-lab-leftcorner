@@ -26,22 +26,31 @@ def parse_html_catalog(file_path):
             continue  # Skip malformed rows
         product_id = cols[0].text.strip()
         name = cols[1].text.strip()
-        price_text = cols[2].text.strip()
+        category = cols[2].text.strip()
+        price_text = cols[3].text.strip()
+        stock_text = cols[4].text.strip()
+        review_text = cols[5].text.strip()
+
         price = None
         if price_text not in ['N/A', 'Liên hệ']:
             try:
-                price = float(price_text.replace('$', '').replace(',', ''))
+                price = float(price_text.replace('VND', '').replace('$', '').replace(',', '').strip())
             except ValueError:
-                pass  # Keep price as None if conversion fails
-        category = cols[3].text.strip()
-        
+                pass
+
+        stock = None
+        try:
+            stock = int(stock_text)
+        except ValueError:
+            pass
+
         products.append({
-            "document_id": product_id,
-            "content": f"{name} - {category}",
+            "document_id": f"html-catalog-{product_id}",
+            "content": f"{name} - {category}. {review_text}",
             "source_type": "HTML",
             "author": "Unknown",
             "timestamp": None,
-            "source_metadata": {"price": price}
+            "source_metadata": {"price": price, "stock": stock, "review": review_text}
         })
     return products
 

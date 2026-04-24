@@ -20,3 +20,7 @@ class UnifiedDocument(BaseModel):
 
     # You might want a dict for source-specific metadata
     source_metadata: dict = Field(default_factory=dict)
+
+    model_config = {
+        "extra": "allow"
+    }
