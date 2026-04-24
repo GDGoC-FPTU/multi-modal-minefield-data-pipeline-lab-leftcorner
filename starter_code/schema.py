@@ -12,11 +12,11 @@ class UnifiedDocument(BaseModel):
     # TODO: Define the v1 schema. 
     # Suggested fields: document_id, content, source_type, author, timestamp, metadata
     
-    document_id: str
-    content: str
-    source_type: str # e.g., 'PDF', 'Video', 'HTML', 'CSV', 'Code'
-    author: Optional[str] = "Unknown"
-    timestamp: Optional[datetime] = None
-    
+    document_id: str = Field(..., description="A unique identifier for the document")
+    content: str = Field(..., description="The main content of the document")
+    source_type: str = Field(..., description="The type of the source document")
+    author: Optional[str] = Field(default="Unknown", description="The author of the document")
+    timestamp: Optional[datetime] = Field(default=None, description="The timestamp of the document")
+
     # You might want a dict for source-specific metadata
     source_metadata: dict = Field(default_factory=dict)
