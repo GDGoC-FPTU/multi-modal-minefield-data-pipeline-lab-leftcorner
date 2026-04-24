@@ -14,6 +14,8 @@ def process_sales_csv(file_path):
     # TODO: Clean 'price' column: convert "$1200", "250000", "five dollars" to floats
     # TODO: Normalize 'date_of_sale' into a single format (YYYY-MM-DD)
     # TODO: Return a list of dictionaries for the UnifiedDocument schema.
-    
-    return []
+    df.drop_duplicates(subset='id', inplace=True)
+    df['price'] = df['price'].replace('[\$,]', '', regex=True).astype(float)
+    df['date_of_sale'] = pd.to_datetime(df['date_of_sale'], errors='coerce').dt.strftime('%Y-%m-%d')
 
+    return df.to_dict(orient='records')
