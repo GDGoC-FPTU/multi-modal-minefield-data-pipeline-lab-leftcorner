@@ -46,13 +46,18 @@ def main():
                 print(f"  [Error] File not found: {task['path']}")
                 continue
 
-            doc = task['func'](task['path'])
+            result = task['func'](task['path'])
             
-            if doc and run_quality_gate(doc):
-                doc_dict = doc.dict() if hasattr(doc, 'dict') else doc
-                final_kb.append(doc_dict)
-            else:
-                print(f"  [Skip] {task['name']} failed quality check or extraction.")
+            if not result:
+                print(f"  [Skip] {task['name']} returned empty extraction.")
+                continue
+                
+            docs = result if isinstance(result, list) else [result]
+            
+            for doc in docs:
+                if doc and run_quality_gate(doc):
+                    doc_dict = doc.dict() if hasattr(doc, 'dict') else doc
+                    final_kb.append(doc_dict)
 
         except Exception as e:
             print(f"  [Critical Error] Failed to process {task['name']}: {str(e)}")
