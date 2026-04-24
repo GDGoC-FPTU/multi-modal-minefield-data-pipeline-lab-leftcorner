@@ -1,0 +1,12 @@
+[
+    {
+        "document_id": "transcript-1",
+        "content": "[Speaker 1]: Chào mừng các bạn đến với buổi học hôm nay về Data Pipeline Engineering.\n \n [Speaker 1]: Hôm nay chúng ta sẽ nói về việc xử lý dữ liệu phi cấu trúc, ví dụ như PDF và Video.\n [Speaker 1]: Một vấn đề lớn là Semantic Drift. Các bạn có biết không?\n [Speaker 2]: Dạ em có nghe qua, nhưng  nó có liên quan gì đến Zillow không ạ?\n [Speaker 1]: Có chứ! Zillow là ví dụ điển hình của việc mô hình bị hỏng do dữ liệu đầu vào thay đổi.\n [Speaker 1]:  Đừng để mô hình của bạn trở thành 'rác vào, rác ra'.\n [Speaker 1]: À, một lưu ý nhỏ cho bài tập: Giá của sản phẩm VinAI Pro là năm trăm nghìn VND. Nhớ nhé, 500,000 VND.\n [Speaker 1]: \n [Speaker 1]: Bây giờ chúng ta hãy bắt đầu thực hành.",
+        "source_type": "Transcript",
+        "author": "Unknown",
+        "timestamp": null,
+        "source_metadata": {
+            "price_mentioned": "năm trăm nghìn"
+        }
+    }
+]
